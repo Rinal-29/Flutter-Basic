@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: PageTabBar(), debugShowCheckedModeBanner: false,
+      home: PageSliderWidget(), debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -232,6 +232,117 @@ class _PageTabBarState extends State<PageTabBar> with SingleTickerProviderStateM
     );
   }
 }
+
+// input and selection widget
+class PageInputSelectWidget extends StatefulWidget {
+  @override
+  _PageInputSelectWidgetState createState() => _PageInputSelectWidgetState();
+}
+
+class _PageInputSelectWidgetState extends State<PageInputSelectWidget> {
+
+  String text = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Page Input Widget"),
+        backgroundColor: Colors.redAccent,
+      ),
+
+      body: new Column(
+        children: [
+          new TextField(
+            onChanged: (String txt) {
+              setState(() {
+                text = txt;
+              });
+            },
+            decoration: new InputDecoration(
+                hintText: "Input Username",
+                labelText: "Username"
+            ),
+          ),
+          SizedBox(height: 20),
+          Text(text)
+        ],
+      ),
+    );
+  }
+}
+
+// button widget
+class PageButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Page Widget Button"),
+      ),
+      body: new Column(
+        children: [
+          new RaisedButton(onPressed: (){}, child: Text("Raised Button"),),
+          new FlatButton(onPressed: (){}, child: Text("Flat Button")),
+          new MaterialButton(
+            onPressed: (){},
+            child: Text("Material Button"),
+            color: Colors.greenAccent,
+            textColor: Colors.white,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+// slider widget
+class PageSliderWidget extends StatefulWidget {
+  @override
+  _PageSliderWidgetState createState() => _PageSliderWidgetState();
+}
+
+class _PageSliderWidgetState extends State<PageSliderWidget> {
+
+  double drag = 1.0;
+
+  void methodDragValue(value){
+    setState(() {
+      drag = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Page Slider Widget"),
+        backgroundColor: Colors.redAccent,
+      ),
+
+      body: new Center(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            new Slider(
+                value: drag,
+                min: 1.0,
+                max: 10.0,
+                onChanged: (double val){
+                  methodDragValue(val);
+                }
+            ),
+            new Text("value + $drag")
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
 
 
 
