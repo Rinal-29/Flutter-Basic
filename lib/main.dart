@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: PageSliderWidget(), debugShowCheckedModeBanner: false,
+      home: PageAlertDialog(), debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -339,6 +342,133 @@ class _PageSliderWidgetState extends State<PageSliderWidget> {
     );
   }
 }
+
+// page simple dialog
+// snackbar
+// toast
+class PageAlertDialog extends StatefulWidget {
+  @override
+  _PageAlertDialogState createState() => _PageAlertDialogState();
+}
+
+class _PageAlertDialogState extends State<PageAlertDialog> {
+
+  final GlobalKey<ScaffoldState> _key = new GlobalKey<ScaffoldState>();
+  SimpleDialog simpleDialog;
+
+  void showSnackbar() {
+    _key.currentState.showSnackBar(
+      new SnackBar(content: Text("Snackbar Showed"))
+    );
+  }
+
+  void showSimpleDialog() {
+    simpleDialog = new SimpleDialog(
+      title: new Text("Warning!"),
+      children: [
+        new SimpleDialogOption(
+          child: new Text("Jakarta"),
+          onPressed: (){
+            print("jakarta");
+          },
+        ),
+
+        new SimpleDialogOption(
+          child: new Text("Makassar"),
+          onPressed: () {
+            print("Makassar");
+          },
+        ),
+
+        new SimpleDialogOption(
+          child: new Text("Exit"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )
+      ],
+    );
+
+    showDialog(context: context, child: simpleDialog);
+  }
+
+  void showAlertDialog() {
+    showDialog(
+      context: context,
+      child: new AlertDialog(
+        title: Text("Warning"),
+        content: Text("Apakah Anda Yakin ingin Keluar ?"),
+        actions: [
+          new IconButton(icon: Icon(Icons.close), color: Colors.lightGreen, onPressed: () {
+            Navigator.pop(context);
+          }),
+
+          new IconButton(icon: Icon(Icons.check), color: Colors.redAccent, onPressed: () {
+            Navigator.pop(exit(0));
+          })
+        ],
+      )
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Simple Alert Dialog"),
+        backgroundColor: Colors.greenAccent,
+      ),
+
+      key: _key,
+
+      body: new Center(
+        child: new Column(
+          children: [
+            new RaisedButton(
+              onPressed: () {
+                showSimpleDialog();
+                }, child: Text("Show Alert Dialog"),
+            ),
+
+            new MaterialButton(
+                onPressed: () {
+                  showSnackbar();
+                },
+              child: Text("Show Snackbar"),
+              color: Colors.greenAccent,
+              textColor: Colors.white,
+            ),
+
+            new MaterialButton(
+                onPressed: () {
+                  showAlertDialog();
+            },
+              child: Text("Show Alert"),
+              color: Colors.redAccent,
+              textColor: Colors.white,
+            ),
+
+            new MaterialButton(
+                onPressed: () {
+                  Fluttertoast.showToast(msg: "Ini Adalah Toast",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    textColor: Colors.white,
+                    backgroundColor: Colors.grey
+                  );
+                },
+              child: Text("Show Toast"),
+              color: Colors.purpleAccent,
+              textColor: Colors.white,
+            )
+          ],
+        )
+      ),
+    );
+  }
+}
+
+
 
 
 
