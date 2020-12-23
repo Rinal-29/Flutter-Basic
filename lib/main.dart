@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: PageMainAnimation(), debugShowCheckedModeBanner: false,
+      home: PageImageAssets(), debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -505,6 +505,46 @@ class DetailHeroAnimation extends StatelessWidget {
         onTap: () {
           Navigator.pop(context);
         },
+      ),
+    );
+  }
+}
+
+// image assets
+class PageImageAssets extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("image from assets"),
+        backgroundColor: Colors.redAccent,
+      ),
+
+      body: Column(
+        children: [
+          Image.asset("images/SEMNASKKN.jpeg", height: 200,),
+          Text("Kkn Images"),
+          SizedBox(height: 35.0,),
+
+          Text("Image Form URL",
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey
+            ),),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.network("https://akcdn.detik.net.id/visual/2017/03/12/d0dc4c69-494e-4526-aab5-8010a79c744f_169.jpg?w=650", 
+              height: 150,
+              width: 150,),
+              
+              Image.network("https://static.hollywoodreporter.com/sites/default/files/2019/03/avatar-publicity_still-h_2019-compressed.jpg",
+              height: 150,
+              width: 150,)
+            ],
+          )
+        ],
       ),
     );
   }
