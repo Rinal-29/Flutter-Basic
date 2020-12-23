@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: PageAlertDialog(), debugShowCheckedModeBanner: false,
+      home: PageMainAnimation(), debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -467,6 +467,50 @@ class _PageAlertDialogState extends State<PageAlertDialog> {
     );
   }
 }
+
+// hero animation
+class PageMainAnimation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Hero Animation"),
+        backgroundColor: Colors.redAccent,
+      ),
+
+      body: GestureDetector(
+        child: Hero(
+            tag: "Image Hero",
+            child: Image.network("https://upload.wikimedia.org/wikipedia/id/b/b0/Avatar-Teaser-Poster.jpg")),
+
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return DetailHeroAnimation();
+          }));
+        },
+      ),
+    );
+  }
+}
+
+class DetailHeroAnimation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: Hero(
+            tag: "Image Hero",
+            child: Image.network("https://upload.wikimedia.org/wikipedia/id/b/b0/Avatar-Teaser-Poster.jpg")),
+
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+}
+
+
 
 
 
